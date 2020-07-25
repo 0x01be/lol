@@ -15,6 +15,7 @@ COPY --from=verilator /opt/verilator/ /opt/verilator/
 ENV PATH /opt/yosys/bin/:/opt/prjtrellis/bin/:/opt/nextpnr/bin/:/opt/verilator/bin/:/opt/riscv/bin/:$PATH
 
 RUN git clone https://github.com/enjoy-digital/linux-on-litex-vexriscv /linux-on-litex-vexriscv
+
 ADD https://github.com/litex-hub/linux-on-litex-vexriscv-prebuilt/blob/master/buildroot/Image?raw=true /linux-on-litex-vexriscv/buildroot/
 ADD https://github.com/litex-hub/linux-on-litex-vexriscv-prebuilt/blob/master/buildroot/rootfs.cpio?raw=true /linux-on-litex-vexriscv/buildroot/
 ADD https://github.com/litex-hub/linux-on-litex-vexriscv-prebuilt/blob/master/buildroot/rv32.dtb?raw=true /linux-on-litex-vexriscv/buildroot/
