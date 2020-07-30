@@ -25,6 +25,9 @@ WORKDIR /linux-on-litex-vexriscv
 RUN /usr/bin/python3 ./make.py --board=versa_ecp5 --build
 
 RUN apk --no-cache add --virtual sim-dependencies \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     libevent-dev \
     json-c-dev \
     perl \
