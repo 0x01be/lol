@@ -14,7 +14,7 @@ COPY --from=verilator /opt/verilator/ /opt/verilator/
 
 ENV PATH /opt/yosys/bin/:/opt/prjtrellis/bin/:/opt/nextpnr/bin/:/opt/verilator/bin/:/opt/riscv/bin/:$PATH
 
-RUN git clone https://github.com/enjoy-digital/linux-on-litex-vexriscv /linux-on-litex-vexriscv
+RUN git clone --depth 1 https://github.com/enjoy-digital/linux-on-litex-vexriscv /linux-on-litex-vexriscv
 
 ADD https://github.com/litex-hub/linux-on-litex-vexriscv-prebuilt/blob/master/buildroot/Image?raw=true /linux-on-litex-vexriscv/buildroot/
 ADD https://github.com/litex-hub/linux-on-litex-vexriscv-prebuilt/blob/master/buildroot/rootfs.cpio?raw=true /linux-on-litex-vexriscv/buildroot/
@@ -25,9 +25,6 @@ WORKDIR /linux-on-litex-vexriscv
 RUN /usr/bin/python3 ./make.py --board=versa_ecp5 --build
 
 RUN apk --no-cache add --virtual sim-dependencies \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     libevent-dev \
     json-c-dev \
     perl \
