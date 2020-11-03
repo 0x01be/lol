@@ -31,7 +31,7 @@ RUN apk --no-cache add --virtual sim-dependencies \
     perl \
     ccache
 
-RUN sed -i.bak 's/^.*dump\(main_time\).*//g' /litex/litex/build/sim/core/veril.cpp
+RUN sed -i.bak 's/^.*dump.main_time.*//g' /litex/litex/build/sim/core/veril.cpp
 
 CMD ["/usr/bin/python3", "./sim.py"]
 
