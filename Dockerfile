@@ -14,11 +14,14 @@ COPY --from=verilator /opt/verilator/ /opt/verilator/
 
 ENV PATH ${PATH}:/opt/yosys/bin/:/opt/prjtrellis/bin/:/opt/nextpnr/bin/:/opt/verilator/bin/:/opt/riscv/bin/
 
-RUN git clone https://github.com/enjoy-digital/linux-on-litex-vexriscv /linux-on-litex-vexriscv
-RUN git clone https://github.com/litex-hub/linux-on-litex-vexriscv-prebuilt.git /linux-on-litex-vexriscv-prebuilt
+ENV REVISION master
+RUN git clone --depth 1 --branch ${REVISION} https://github.com/enjoy-digital/linux-on-litex-vexriscv /linux-on-litex-vexriscv
+RUN git clone --depth 1 --branch ${REVISION} https://github.com/litex-hub/linux-on-litex-vexriscv-prebuilt.git /linux-on-litex-vexriscv-prebuilt
 RUN cp /linux-on-litex-vexriscv-prebuilt/buildroot/*  /linux-on-litex-vexriscv/buildroot/
 
 WORKDIR /linux-on-litex-vexriscv
+
+RUN sed -i.bak 's/dump\(.*\)//g' /litex/litex/build/sim/core/veril.cpp
 
 ENV CFLAGGS="$CFLAGS -U_FORTIFY_SOURCE" \
     CXXFLAGS="$CXXFLAGS -U_FORTIFY_SOURCE"
