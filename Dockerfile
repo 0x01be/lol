@@ -21,8 +21,6 @@ RUN cp /linux-on-litex-vexriscv-prebuilt/buildroot/*  /linux-on-litex-vexriscv/b
 
 WORKDIR /linux-on-litex-vexriscv
 
-RUN sed -i.bak 's/dump\(.*\)//g' /litex/litex/build/sim/core/veril.cpp
-
 ENV CFLAGGS="$CFLAGS -U_FORTIFY_SOURCE" \
     CXXFLAGS="$CXXFLAGS -U_FORTIFY_SOURCE"
 RUN /usr/bin/python3 ./make.py --board=versa_ecp5 --build
@@ -32,6 +30,8 @@ RUN apk --no-cache add --virtual sim-dependencies \
     json-c-dev \
     perl \
     ccache
+
+RUN sed -i.bak 's/^.*dump\(main_time\).*//g' /litex/litex/build/sim/core/veril.cpp
 
 CMD ["/usr/bin/python3", "./sim.py"]
 
