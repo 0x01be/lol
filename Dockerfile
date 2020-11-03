@@ -21,8 +21,6 @@ RUN cp /linux-on-litex-vexriscv-prebuilt/buildroot/*  /linux-on-litex-vexriscv/b
 
 WORKDIR /linux-on-litex-vexriscv
 
-ENV CFLAGGS="$CFLAGS -U_FORTIFY_SOURCE" \
-    CXXFLAGS="$CXXFLAGS -U_FORTIFY_SOURCE"
 RUN /usr/bin/python3 ./make.py --board=versa_ecp5 --build
 
 RUN apk --no-cache add --virtual sim-dependencies \
