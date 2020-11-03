@@ -12,9 +12,10 @@ COPY --from=nextpnr /opt/nextpnr/ /opt/nextpnr/
 COPY --from=riscv /opt/riscv/ /opt/riscv/
 COPY --from=verilator /opt/verilator/ /opt/verilator/
 
-ENV PATH /opt/yosys/bin/:/opt/prjtrellis/bin/:/opt/nextpnr/bin/:/opt/verilator/bin/:/opt/riscv/bin/:$PATH
+ENV PATH ${PATH}:/opt/yosys/bin/:/opt/prjtrellis/bin/:/opt/nextpnr/bin/:/opt/verilator/bin/:/opt/riscv/bin/
 
-RUN git clone --depth 1 https://github.com/enjoy-digital/linux-on-litex-vexriscv /linux-on-litex-vexriscv
+ENV REVISION master
+RUN git clone --depth 1 --branch ${REVISION} https://github.com/enjoy-digital/linux-on-litex-vexriscv /linux-on-litex-vexriscv
 
 ADD https://github.com/litex-hub/linux-on-litex-vexriscv-prebuilt/blob/master/buildroot/Image?raw=true /linux-on-litex-vexriscv/buildroot/
 ADD https://github.com/litex-hub/linux-on-litex-vexriscv-prebuilt/blob/master/buildroot/rootfs.cpio?raw=true /linux-on-litex-vexriscv/buildroot/
